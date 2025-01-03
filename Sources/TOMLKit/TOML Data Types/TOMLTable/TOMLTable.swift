@@ -167,6 +167,7 @@ public final class TOMLTable:
 	/// An `Array` of the `TOMValue`s in this table.
 	public var values: [TOMLValue] {
 		let pointer = tableGetValues(self.tablePointer)
+		defer { freeTableGetValues(pointer, self.count) }
 		var tomlValueArray: [TOMLValue] = []
 
 		for i in 0..<self.count {

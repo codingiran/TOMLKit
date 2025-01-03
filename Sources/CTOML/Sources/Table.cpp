@@ -184,6 +184,13 @@ extern "C" {
 		return valueArray;
 	}
 
+	void freeTableGetValues(CTOMLNode const * const * table, size_t size) {
+		for (int i = 0; i < size; i++) {
+			free((void *) table[i]);
+		}
+		free((void *) table);
+	}
+
 	// MARK: - Table - Data Removal
 
 	/// Remove the element at \c key from \c table .
