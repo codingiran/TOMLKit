@@ -155,6 +155,7 @@ public final class TOMLTable:
 	/// An `Array` of the keys in this table.
 	public var keys: [String] {
 		let pointer = tableGetKeys(self.tablePointer)
+		defer { freeTableGetKeys(pointer, self.count) }
 		var keyArray: [String] = []
 		for i in 0..<self.count {
 			keyArray.append(String(cString: pointer[i]))

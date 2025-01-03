@@ -162,6 +162,13 @@ extern "C" {
 		return keyArray;
 	}
 
+	void freeTableGetKeys(const char * const * table, size_t size) {
+		for (int i = 0; i < size; i++) {
+			free((void *) table[i]);
+		}
+		free((void *) table);
+	}
+
 	/// Retrieve all the values from \c table . The size of the return value is the size of \c table
 	/// .
 	CTOMLNode const * const * tableGetValues(CTOMLTable * table) {
