@@ -1,0 +1,4 @@
+root = true
+
+[*.swift]
+indent_style = tab

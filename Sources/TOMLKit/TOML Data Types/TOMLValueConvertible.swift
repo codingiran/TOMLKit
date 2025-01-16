@@ -59,6 +59,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .bool,
 			let pointer = nodeAsBool(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return pointer.pointee
 	}
@@ -69,6 +70,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .int,
 			let pointer = nodeAsInt(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return Int(pointer.pointee)
 	}
@@ -79,6 +81,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .double,
 			let pointer = nodeAsDouble(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return pointer.pointee
 	}
@@ -89,6 +92,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .string,
 			let pointer = nodeAsString(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return String(cString: pointer)
 	}
@@ -99,6 +103,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .date,
 			let pointer = nodeAsDate(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return TOMLDate(cTOMLDate: pointer.pointee)
 	}
@@ -109,6 +114,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .time,
 			let pointer = nodeAsTime(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return TOMLTime(cTOMLTime: pointer.pointee)
 	}
@@ -119,6 +125,7 @@ public extension TOMLValueConvertible {
 			self.tomlValue.type == .dateTime,
 			let pointer = nodeAsDateTime(self.tomlValue.tomlValuePointer)
 		else { return nil }
+		defer { free(UnsafeMutableRawPointer(mutating: pointer)) }
 
 		return TOMLDateTime(cTOMLDateTime: pointer.pointee)
 	}
@@ -127,7 +134,7 @@ public extension TOMLValueConvertible {
 	var table: TOMLTable? {
 		guard
 			self.tomlValue.type == .table,
-			let pointer = nodeAsTable(self.tomlValue.tomlValuePointer)
+			let pointer = nodeAsTable(self.tomlValue.tomlValuePointer) // no need to free the memory
 		else { return nil }
 
 		return TOMLTable(tablePointer: pointer)
@@ -137,7 +144,7 @@ public extension TOMLValueConvertible {
 	var array: TOMLArray? {
 		guard
 			self.tomlValue.type == .array,
-			let pointer = nodeAsArray(self.tomlValue.tomlValuePointer)
+			let pointer = nodeAsArray(self.tomlValue.tomlValuePointer) // no need to free the memory
 		else { return nil }
 
 		return TOMLArray(arrayPointer: pointer)

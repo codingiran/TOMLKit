@@ -278,10 +278,12 @@ extern "C" {
 
 	/// Retrieve all the keys from \c table . The size of the return value is the size of \c table .
 	char const * _Nonnull const * _Nonnull tableGetKeys(CTOMLTable * table);
+	void freeTableGetKeys(char const * _Nonnull const * _Nonnull table, size_t size);
 
 	/// Retrieve all the values from \c table . The size of the return value is the size of \c table
 	/// .
 	CTOMLNode const * _Nonnull const * _Nonnull tableGetValues(CTOMLTable * table);
+	void freeTableGetValues(CTOMLNode const * _Nonnull const * _Nonnull table, size_t size);
 
 	// MARK: - Table - Data Removal
 	/// Remove the element at \c key from \c table .
